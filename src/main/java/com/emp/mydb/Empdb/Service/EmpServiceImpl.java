@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.emp.mydb.Empdb.Repository.EmpRepository;
 import com.emp.mydb.Empdb.entity.Employee;
-import com.emp.mydb.Empdb.entity.ResourceNotFoundException;
+import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 
 
 @Service
@@ -44,10 +44,9 @@ public class EmpServiceImpl implements EmpService{
 	}
 
 	@Override
-	public Employee updateEmployee(Employee employee, long id) {
+	public Employee updateEmployee(Employee employee) {
 		// we need t check whether employee with given id is exit in DB or not
-		Employee exitingEmployee = empRepository.findById(id).orElseThrow(
-				() -> new ResourceNotFoundException("Employee", "Id", id));
+		Employee exitingEmployee = getEmployeeById(employee.getId());
 		
 		exitingEmployee.setFirstname(employee.getFirstname());
 		exitingEmployee.setLastname(employee.getLastname());

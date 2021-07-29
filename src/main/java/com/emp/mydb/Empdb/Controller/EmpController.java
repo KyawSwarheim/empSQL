@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.emp.mydb.Empdb.Service.EmpService;
 import com.emp.mydb.Empdb.entity.Employee;
+import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -42,14 +43,18 @@ public class EmpController {
 	//http:localhost:8080/api/employees/1
 	@GetMapping("{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id")long EmpolyeeId){
-		return new ResponseEntity<Employee>(empService.getEmployeeById(EmpolyeeId), HttpStatus.OK);
+		try {
+			return new ResponseEntity<Employee>(empService.getEmployeeById(EmpolyeeId), HttpStatus.OK);
+	}catch (ResourceNotFoundException e) {
+		System.out.print(e.toString());
+		return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+		}
 	}
 	//build update employee Rest API
 	//http:localhost:8080/api/employees/1
-	@PutMapping("{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id
-													,@RequestBody Employee employee){
-		return new ResponseEntity<Employee>(empService.updateEmployee(employee, id), HttpStatus.OK);
+	@PutMapping()
+	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee){
+		return new ResponseEntity<Employee>(empService.updateEmployee(employee), HttpStatus.OK);
 		
 	}
 	

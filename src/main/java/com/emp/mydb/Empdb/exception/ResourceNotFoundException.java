@@ -1,4 +1,4 @@
-package com.emp.mydb.Empdb.entity;
+package com.emp.mydb.Empdb.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
