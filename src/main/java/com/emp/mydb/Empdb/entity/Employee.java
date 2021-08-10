@@ -1,17 +1,27 @@
 package com.emp.mydb.Empdb.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name= "employees")
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name ="employee_id")
 	private long id;
 	
 	@Column(name = "firstname")
@@ -23,20 +33,28 @@ public class Employee {
 	@Column(name = "email")
 	private String email;
 	
+	
+	
+	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(
+			name= "employee_role",
+			joinColumns = @JoinColumn(name = "employee_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id")
+			)
+	@JsonIgnore
+	private Set<Role> roles = new HashSet<>();
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+
 	public Employee() {
-		super();
 	}
-	
-	
-	public Employee(Employee employee) {
-		super();
-		this.id = employee.id;
-		this.firstname = employee.firstname;
-		this.lastname = employee.lastname;
-		this.email = employee.email;
-	}
-	
-	
 	public long getId() {
 		return id;
 	}
@@ -61,6 +79,10 @@ public class Employee {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public void roles(Role role) {
+		roles.add(role);
+		
+	}
 
 }

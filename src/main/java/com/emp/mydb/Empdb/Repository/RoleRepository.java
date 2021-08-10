@@ -2,11 +2,11 @@ package com.emp.mydb.Empdb.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.emp.mydb.Empdb.entity.Employee;
+import com.emp.mydb.Empdb.entity.Role;
 
 @Repository
-public interface EmpRepository extends JpaRepository<Employee, Long>{
+public interface RoleRepository extends JpaRepository<Role, Long>{
 	
-	public Employee findById(long id);
+	public Role findById(long id);
 
 }
