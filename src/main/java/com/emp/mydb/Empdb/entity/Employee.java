@@ -33,8 +33,6 @@ public class Employee {
 	@Column(name = "email")
 	private String email;
 	
-	
-	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(
 			name= "employee_role",
@@ -47,12 +45,9 @@ public class Employee {
 	public Set<Role> getRoles() {
 		return roles;
 	}
-
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
-
 	public Employee() {
 	}
 	public long getId() {
@@ -79,10 +74,8 @@ public class Employee {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public void roles(Role role) {
-		roles.add(role);
-		
+		roles.add(role);		
 	}
 
 }

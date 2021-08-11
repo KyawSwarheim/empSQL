@@ -31,40 +31,31 @@ public class Role{
 	public Set<Employee> getEmployees() {
 		return employees;
 	}
-
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
-
 	public Role() {
 		super();
-	}
-	
+	}	
 	public Role(long id, String rolename) {
 		super();
 		this.id = id;
 		this.rolename = rolename;
-	}
-	
+	}	
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	public String getRolename() {
 		return rolename;
 	}
-
 	public void setRolename(String rolename) {
 		this.rolename = rolename;
 	}
-
 	public void addEmployee(Employee employee) {
-		this.employees.add(employee);
-		
+		this.employees.add(employee);		
 	}
 	
 }

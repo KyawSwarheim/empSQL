@@ -56,9 +56,7 @@ public class EmpController {
 	public ResponseEntity<Employee> updateEmployee(@RequestBody EmployeeRequest employeeRequest){
 		return new ResponseEntity<Employee>(empService.updateEmployee(employeeRequest), HttpStatus.OK);
 		
-	}
-	
-	
+	}	
 	//build delete employee Rest API
 	//http://localhost:8080/api/employees/1
 	@DeleteMapping("{id}")
