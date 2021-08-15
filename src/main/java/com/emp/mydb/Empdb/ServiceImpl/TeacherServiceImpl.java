@@ -1,20 +1,23 @@
 package com.emp.mydb.Empdb.ServiceImpl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.emp.mydb.Empdb.Repository.SalaryRepository;
 import com.emp.mydb.Empdb.Repository.TeacherRepository;
 import com.emp.mydb.Empdb.Service.TeacherService;
-import com.emp.mydb.Empdb.entity.Role;
+import com.emp.mydb.Empdb.entity.Salary;
 import com.emp.mydb.Empdb.entity.Teacher;
+import com.emp.mydb.Empdb.request.TeacherRequest;
 
 @Service
 public class TeacherServiceImpl implements TeacherService{
 	
 	@Autowired
 	TeacherRepository teacherRepository;
+	
+	@Autowired
+	SalaryRepository salaryRepository;
 
 	@Override
 	public Teacher saveTeacher(Teacher teacher) {
@@ -51,6 +54,15 @@ public class TeacherServiceImpl implements TeacherService{
 	public void deleteTeacher(long id) {
 		teacherRepository.deleteById(id);
 		
+	}
+	public Teacher addTeacher(TeacherRequest teacherRequest) {
+		Salary salary = salaryRepository.findById(teacherRequest.getSalary_id());
+		Teacher teacher = new Teacher();
+		teacher.setName(teacherRequest.getName());
+		teacher.setSubject(teacherRequest.getSubject());
+		teacher.setDevelopment(teacherRequest.getDevelopment());
+		teacher.setSalary(salary);
+		return teacherRepository.save(teacher);
 	}
 
 }

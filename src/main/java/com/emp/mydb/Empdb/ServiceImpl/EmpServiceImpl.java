@@ -3,8 +3,6 @@ package com.emp.mydb.Empdb.ServiceImpl;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.emp.mydb.Empdb.Repository.EmpRepository;
@@ -47,8 +45,8 @@ public class EmpServiceImpl implements EmpService {
 //			throw new ResourceNotFoundException("Employee", "Id", id);
 //		}
 		return empRepository.findById(id);
-		// .orElseThrow(() ->
-		// new ResourceNotFoundException("Employee", "Id", id));
+//		.orElseThrow(() ->
+//		 new ResourceNotFoundException("Employee", "Id", id));
 	}
 
 	@Override
@@ -73,7 +71,7 @@ public class EmpServiceImpl implements EmpService {
 	public void deleteEmployee(long id) {
 		// check whether a employee exist in a DB or Not
 		// empRepository.findById(id).orElseThrow(
-		// () -> new ResourceNotFoundException("Employee", "Id", id));
+		 //() -> new ResourceNotFoundException("Employee", "Id", id));
 		empRepository.deleteById(id);
 
 	}
