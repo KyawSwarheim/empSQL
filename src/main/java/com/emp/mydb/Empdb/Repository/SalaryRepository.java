@@ -6,5 +6,4 @@ import com.emp.mydb.Empdb.entity.Salary;
 
 @Repository
 public interface SalaryRepository extends JpaRepository<Salary, Long>{
-	public Salary findById(long id);
 }

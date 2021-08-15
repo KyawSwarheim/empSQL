@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.emp.mydb.Empdb.Service.SalaryService;
 import com.emp.mydb.Empdb.entity.Salary;
@@ -18,40 +19,48 @@ import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
-@RequestMapping("/api/salarys")
+@RequestMapping("/api/salary")
 public class SalaryController {
-	
-	@Autowired
-	SalaryService salaryService;
-	
-	@PostMapping()
-	public ResponseEntity<Salary> saveSalary(@RequestBody Salary salary){
-		return new ResponseEntity<Salary>(salaryService.saveSalary(salary), HttpStatus.CREATED);
-	}
-	@GetMapping()
-	public List<Salary> getAllSalarys(){
-		return salaryService.getAllSalarys();
-	}
-	@GetMapping("{id}")
-	public ResponseEntity<Salary> getSalaryById(@PathVariable("id")long SalaryId){
-		try {
-			return new ResponseEntity<Salary>(salaryService.getSalaryById(SalaryId), HttpStatus.OK);
-	}catch (ResourceNotFoundException e) {
-		System.out.print(e);
-		DefaultReponse defaultReponse = new DefaultReponse(e.getMessage());
-		return new ResponseEntity(defaultReponse,HttpStatus.NOT_FOUND);
-		}
-	}
-	@PutMapping()
-	public ResponseEntity<Salary> updateSalary(@RequestBody Salary salary){
-		return new ResponseEntity<Salary>(salaryService.updateSalary(salary), HttpStatus.OK);
-		
-	}
-	@DeleteMapping("{id}")
-	public ResponseEntity<String> deleteSalary(@PathVariable("id")long id){
-		//delete employee from DB
-		salaryService.deleteSalary(id);
-		return new ResponseEntity<String>("Salary deleted Successfuly!", HttpStatus.OK);
-	}
+
+    @Autowired
+    SalaryService salaryService;
+
+    @PostMapping()
+    public ResponseEntity<Salary> saveSalary(@RequestBody Salary salary) {
+        System.out.println("post contoroller " + salary);
+        return new ResponseEntity<Salary>(salaryService.saveSalary(salary), HttpStatus.CREATED);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<Salary>> getAllSalaries() {
+        System.out.println("get salary contoroller ");
+        return new ResponseEntity<List<Salary>>(salaryService.getAllSalarys(), HttpStatus.OK);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Object> getSalaryById(@PathVariable("id") long id) {
+        try {
+            System.out.println("get by id salary " + id);
+            return new ResponseEntity<Object>(salaryService.findById(id), HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            System.out.print(e);
+            DefaultReponse defaultReponse = new DefaultReponse(e.getMessage());
+            return new ResponseEntity<Object>(defaultReponse, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping()
+    public ResponseEntity<Salary> updateSalary(@RequestBody Salary salary) {
+        System.out.println("update salary " + salary);
+        return new ResponseEntity<Salary>(salaryService.updateSalary(salary), HttpStatus.OK);
+
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<String> deleteSalary(@RequestParam("id") long id) {
+        System.out.println("update salary " + id);
+        salaryService.deleteSalary(id);
+        return new ResponseEntity<String>("Salary deleted Successfuly!", HttpStatus.OK);
+    }
 
 }

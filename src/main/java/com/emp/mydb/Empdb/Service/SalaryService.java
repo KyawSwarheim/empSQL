@@ -13,9 +13,7 @@ public interface SalaryService {
 	
 	List<Salary> getAllSalarys();
 
-	Salary findById(long salaryrId);
-	
-	Salary getSalaryById(long id);
+	Salary findById(long salaryId);
 	
 	Salary updateSalary(Salary salary);
 	

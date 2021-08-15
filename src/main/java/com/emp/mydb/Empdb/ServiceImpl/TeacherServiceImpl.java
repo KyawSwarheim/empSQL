@@ -31,17 +31,12 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public Teacher findById(long teacherId) {
-		return teacherRepository.getById(teacherId);
-	}
-
-	@Override
-	public Teacher getTeacherById(long id) {
-		return teacherRepository.findById(id);
+		return teacherRepository.findById(teacherId).orElseThrow();
 	}
 
 	@Override
 	public Teacher updateTeacher(Teacher teacher) {
-		Teacher exitingTeacher = getTeacherById(teacher.getId());
+		Teacher exitingTeacher = findById(teacher.getId());
 		exitingTeacher.setName(teacher.getName());
 		exitingTeacher.setSubject(teacher.getSubject());
 		exitingTeacher.setDevelopment(teacher.getDevelopment());
@@ -56,7 +51,7 @@ public class TeacherServiceImpl implements TeacherService{
 		
 	}
 	public Teacher addTeacher(TeacherRequest teacherRequest) {
-		Salary salary = salaryRepository.findById(teacherRequest.getSalary_id());
+		Salary salary = salaryRepository.getById(teacherRequest.getSalary_id());
 		Teacher teacher = new Teacher();
 		teacher.setName(teacherRequest.getName());
 		teacher.setSubject(teacherRequest.getSubject());

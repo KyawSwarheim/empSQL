@@ -7,6 +7,4 @@ import com.emp.mydb.Empdb.entity.Teacher;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long>{
 	
-	public Teacher findById(long id);
-
 }
