@@ -43,7 +43,7 @@ public class RoleController {
 		@GetMapping("{id}")
 		public ResponseEntity<Role> getRoleById(@PathVariable("id")long RoleId){
 			try {
-				return new ResponseEntity<Role>(roleService.getRoleById(RoleId), HttpStatus.OK);
+				return new ResponseEntity<Role>(roleService.findById(RoleId), HttpStatus.OK);
 		}catch (ResourceNotFoundException e) {
 			System.out.print(e);
 			DefaultReponse defaultReponse = new DefaultReponse(e.getMessage());

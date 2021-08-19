@@ -8,21 +8,17 @@ import com.emp.mydb.Empdb.Repository.TeacherRepository;
 import com.emp.mydb.Empdb.Service.TeacherService;
 import com.emp.mydb.Empdb.entity.Salary;
 import com.emp.mydb.Empdb.entity.Teacher;
+import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.request.TeacherRequest;
 
 @Service
-public class TeacherServiceImpl implements TeacherService{
-	
+public class TeacherServiceImpl implements TeacherService {
+
 	@Autowired
 	TeacherRepository teacherRepository;
-	
+
 	@Autowired
 	SalaryRepository salaryRepository;
-
-	@Override
-	public Teacher saveTeacher(Teacher teacher) {
-		return teacherRepository.save(teacher);
-	}
 
 	@Override
 	public List<Teacher> getAllTeachers() {
@@ -31,7 +27,8 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public Teacher findById(long teacherId) {
-		return teacherRepository.findById(teacherId).orElseThrow();
+		return teacherRepository.findById(teacherId)
+				.orElseThrow(() -> new ResourceNotFoundException("Teacher", "Id", teacherId));
 	}
 
 	@Override
@@ -40,7 +37,6 @@ public class TeacherServiceImpl implements TeacherService{
 		exitingTeacher.setName(teacher.getName());
 		exitingTeacher.setSubject(teacher.getSubject());
 		exitingTeacher.setDevelopment(teacher.getDevelopment());
-		
 		teacherRepository.save(exitingTeacher);
 		return exitingTeacher;
 	}
@@ -48,8 +44,10 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public void deleteTeacher(long id) {
 		teacherRepository.deleteById(id);
-		
+
 	}
+
+	@Override
 	public Teacher addTeacher(TeacherRequest teacherRequest) {
 		Salary salary = salaryRepository.getById(teacherRequest.getSalary_id());
 		Teacher teacher = new Teacher();
@@ -58,6 +56,11 @@ public class TeacherServiceImpl implements TeacherService{
 		teacher.setDevelopment(teacherRequest.getDevelopment());
 		teacher.setSalary(salary);
 		return teacherRepository.save(teacher);
+	}
+
+	@Override
+	public List<Teacher> findByName(String name) {
+		return teacherRepository.findByName(name);
 	}
 
 }

@@ -13,14 +13,12 @@ public interface EmpService {
 	
 	List<Employee> getAllEmployees();
 	
-	Employee getEmployeeById(long id);
-	
 	Employee updateEmployee(EmployeeRequest employeeRequest);
 	
 	void deleteEmployee(long id);
 
-	Employee findById(Long employeeId);
-	
 	Employee addEmployeewithRole(EmployeeRequest employeeRequest);
+
+	Employee findById(long employeeId);
 
 }

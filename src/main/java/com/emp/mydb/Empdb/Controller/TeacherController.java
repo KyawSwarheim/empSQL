@@ -16,46 +16,51 @@ import org.springframework.web.bind.annotation.RestController;
 import com.emp.mydb.Empdb.Service.TeacherService;
 import com.emp.mydb.Empdb.entity.Teacher;
 import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
+import com.emp.mydb.Empdb.request.TeacherRequest;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
 @RequestMapping("/api/teachers")
 public class TeacherController {
 
-    @Autowired
-    TeacherService teacherService;
+	@Autowired
+	TeacherService teacherService;
 
-    @PostMapping()
-    public ResponseEntity<Teacher> saveTeacher(@RequestBody Teacher teacher) {
-        return new ResponseEntity<Teacher>(teacherService.saveTeacher(teacher), HttpStatus.CREATED);
-    }
+	@PostMapping()
+	public ResponseEntity<Teacher> addTeacher(@RequestBody TeacherRequest teacherRequest) {
+		return new ResponseEntity<Teacher>(teacherService.addTeacher(teacherRequest), HttpStatus.CREATED);
+	}
 
-    @GetMapping()
-    public ResponseEntity<List<Teacher>> getAllTeachers() {
-        return new ResponseEntity<List<Teacher>>(teacherService.getAllTeachers(), HttpStatus.OK);
-    }
+	@GetMapping()
+	public ResponseEntity<List<Teacher>> getAllTeachers() {
+		return new ResponseEntity<List<Teacher>>(teacherService.getAllTeachers(), HttpStatus.OK);
+	}
+	
+	@GetMapping("{/id}")
+	public ResponseEntity<Teacher> getTeacherById(@PathVariable("id") long TeacherId) {
+		try {
+			return new ResponseEntity<Teacher>(teacherService.findById(TeacherId), HttpStatus.OK);
+			
+		} catch (ResourceNotFoundException e) {
+			System.out.print(e);
+			DefaultReponse defaultReponse = new DefaultReponse(e.getMessage());
+			return new ResponseEntity(defaultReponse, HttpStatus.NOT_FOUND);
+		}		
+	}
+	@GetMapping("/name")
+	public ResponseEntity<List<Teacher>> getName(@RequestParam("name") String name) {
+		return new ResponseEntity<List<Teacher>>(teacherService.findByName(name), HttpStatus.OK);
+	}
 
-    @GetMapping("{id}")
-    public ResponseEntity<Teacher> getTeacherById(@PathVariable("id") long TeacherId) {
-        try {
-            return new ResponseEntity<Teacher>(teacherService.findById(TeacherId), HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            System.out.print(e);
-            DefaultReponse defaultReponse = new DefaultReponse(e.getMessage());
-            return new ResponseEntity(defaultReponse, HttpStatus.NOT_FOUND);
-        }
-    }
+	@PutMapping()
+	public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher) {
+		return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacher), HttpStatus.OK);
+	}
 
-    @PutMapping()
-    public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher) {
-        return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacher), HttpStatus.OK);
-
-    }
-
-    @DeleteMapping()
-    public ResponseEntity<String> deleteTeacher(@RequestParam("id") long id) {
-        teacherService.deleteTeacher(id);
-        return new ResponseEntity<String>("Teacher deleted Successfuly!", HttpStatus.OK);
-    }
+	@DeleteMapping()
+	public ResponseEntity<String> deleteTeacher(@RequestParam("id") long id) {
+		teacherService.deleteTeacher(id);
+		return new ResponseEntity<String>("Teacher deleted Successfuly!", HttpStatus.OK);
+	}
 
 }

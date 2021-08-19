@@ -9,14 +9,14 @@ import com.emp.mydb.Empdb.entity.Role;
 import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 
 @Service
-public class RoleServiceImpl implements RoleService{
-	
+public class RoleServiceImpl implements RoleService {
+
 	@Autowired
 	RoleRepository roleRepository;
 
 	public RoleServiceImpl(RoleRepository roleRepository) {
 		super();
-		this.roleRepository =roleRepository;
+		this.roleRepository = roleRepository;
 	}
 
 	@Override
@@ -31,34 +31,25 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public Role findById(long roleId) {
-		return roleRepository.getById(roleId);
-	}
-
-	@Override
-	public Role getRoleById(long id) {
-		return roleRepository.findById(id);
-		//.orElseThrow(() -> 
-		//new ResourceNotFoundException("Role", "Id", id));
+		return roleRepository.findById(roleId)
+				.orElseThrow(() -> new ResourceNotFoundException("Role", "Id", roleId));
 	}
 
 	@Override
 	public Role updateRole(Role role) {
 		// we need t check whether employee with given id is exit in DB or not
-		Role exitingRole = getRoleById(role.getId());
-				
-			exitingRole.setRolename(role.getRolename());
-		//save existing employee to DB
-			roleRepository.save(exitingRole);
-			return exitingRole;
+		Role exitingRole = findById(role.getId());
+		exitingRole.setRolename(role.getRolename());
+		roleRepository.save(exitingRole);
+		return exitingRole;
 	}
 
 	@Override
 	public void deleteRole(long id) {
-		//roleRepository.findById(id).orElseThrow(
-			//	() -> new ResourceNotFoundException("Role", "Id", id));
+		roleRepository.findById(id)
+		.orElseThrow(() -> new ResourceNotFoundException("Role", "Id", id));
 		roleRepository.deleteById(id);
-		
+
 	}
-	
 
 }

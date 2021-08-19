@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class DefaultReponse implements Serializable{
 	
-	private  String message;
+	private  String message= "Your Id is not found!";
 
 	public DefaultReponse() {
 	}

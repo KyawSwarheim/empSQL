@@ -27,22 +27,20 @@ public class SalaryServiceImpl implements SalaryService {
 	@Override
 	public Salary findById(long salaryId) {
 		return salaryRepository.findById(salaryId)
-		            .orElseThrow(()-> new ResourceNotFoundException("Role ", "Id", salaryId));
+			.orElseThrow(()-> new ResourceNotFoundException("Salary ", "Id", salaryId));
 	}
 
 	@Override
 	public Salary updateSalary(Salary salary) {
 		Salary exitingSalary = findById(salary.getId());
-		exitingSalary.setPrice(salary.getPrice());
-		
+		exitingSalary.setPrice(salary.getPrice());	
 		salaryRepository.save(exitingSalary);
 		return exitingSalary;
 	}
 
 	@Override
 	public void deleteSalary(long id) {
-		salaryRepository.deleteById(id);
-		
+		salaryRepository.deleteById(id);		
 	}
 
 }

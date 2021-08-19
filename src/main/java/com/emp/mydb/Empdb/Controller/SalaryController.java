@@ -57,7 +57,7 @@ public class SalaryController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteSalary(@RequestParam("id") long id) {
+    public ResponseEntity<String> deleteSalary(@RequestParam(name="id") long id) {
         System.out.println("update salary " + id);
         salaryService.deleteSalary(id);
         return new ResponseEntity<String>("Salary deleted Successfuly!", HttpStatus.OK);

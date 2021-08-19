@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.emp.mydb.Empdb.Service.EmpService;
-import com.emp.mydb.Empdb.Service.RoleService;
 import com.emp.mydb.Empdb.entity.Employee;
-import com.emp.mydb.Empdb.entity.Role;
 import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.request.EmployeeRequest;
 
@@ -25,9 +23,6 @@ public class EmpController {
 	
 	@Autowired
 	private EmpService empService;
-	
-	@Autowired
-	private RoleService roleService;
 
 	public EmpController(EmpService empService) {
 		super();
@@ -44,7 +39,7 @@ public class EmpController {
 	@GetMapping("{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id")long EmpolyeeId){
 		try {
-			return new ResponseEntity<Employee>(empService.getEmployeeById(EmpolyeeId), HttpStatus.OK);
+			return new ResponseEntity<Employee>(empService.findById(EmpolyeeId), HttpStatus.OK);
 	}catch (ResourceNotFoundException e) {
 		System.out.print(e);
 		return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);

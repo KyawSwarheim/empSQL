@@ -39,7 +39,6 @@ public class Employee {
 			joinColumns = @JoinColumn(name = "employee_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id")
 			)
-	@JsonIgnore
 	private Set<Role> roles = new HashSet<>();
 	
 	public Set<Role> getRoles() {

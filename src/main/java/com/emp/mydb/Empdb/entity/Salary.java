@@ -2,6 +2,7 @@ package com.emp.mydb.Empdb.entity;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name="salary_id")
+    private long salary_id;
 
     private String price;
 
@@ -27,11 +29,11 @@ public class Salary {
     }
 
     public long getId() {
-        return id;
+        return salary_id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.salary_id = id;
     }
 
     public String getPrice() {
@@ -52,7 +54,7 @@ public class Salary {
 
     @Override
     public String toString() {
-        return "Salary [id=" + id + ", price=" + price + ", teacher=" + teacher + "]";
+        return "Salary [id=" + salary_id + ", price=" + price + ", teacher=" + teacher + "]";
     }
 
 }
