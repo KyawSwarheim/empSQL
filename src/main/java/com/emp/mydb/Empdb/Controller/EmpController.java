@@ -37,12 +37,12 @@ public class EmpController {
 	//build get employee by id Rest API
 	//http://localhost:8080/api/employees/1
 	@GetMapping("{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id")long EmpolyeeId){
+	public ResponseEntity<Object> getEmployeeById(@PathVariable("id")long EmpolyeeId){
 		try {
-			return new ResponseEntity<Employee>(empService.findById(EmpolyeeId), HttpStatus.OK);
+			return new ResponseEntity<Object>(empService.findById(EmpolyeeId), HttpStatus.OK);
 	}catch (ResourceNotFoundException e) {
 		System.out.print(e);
-		return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Object>(e.getMessage(),HttpStatus.NOT_FOUND);
 		}
 	}
 	//build update employee Rest API

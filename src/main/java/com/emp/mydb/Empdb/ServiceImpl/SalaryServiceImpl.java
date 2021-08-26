@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.emp.mydb.Empdb.Repository.SalaryRepository;
 import com.emp.mydb.Empdb.Service.SalaryService;
 import com.emp.mydb.Empdb.entity.Salary;
-import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 
 @Service
 public class SalaryServiceImpl implements SalaryService {
@@ -25,14 +24,14 @@ public class SalaryServiceImpl implements SalaryService {
 	}
 
 	@Override
-	public Salary findById(long salaryId) {
-		return salaryRepository.findById(salaryId)
-			.orElseThrow(()-> new ResourceNotFoundException("Salary ", "Id", salaryId));
+	public Salary findId(long salaryId) {
+		return salaryRepository.findById(salaryId);
+		//orElseThrow(()-> new ResourceNotFoundException("Salary", "Id", salaryId));
 	}
 
 	@Override
 	public Salary updateSalary(Salary salary) {
-		Salary exitingSalary = findById(salary.getId());
+		Salary exitingSalary = findId(salary.getId());
 		exitingSalary.setPrice(salary.getPrice());	
 		salaryRepository.save(exitingSalary);
 		return exitingSalary;

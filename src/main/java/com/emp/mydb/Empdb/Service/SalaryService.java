@@ -13,7 +13,7 @@ public interface SalaryService {
 	
 	List<Salary> getAllSalarys();
 
-	Salary findById(long salaryId);
+	Salary findId(long salaryId);
 	
 	Salary updateSalary(Salary salary);
 	

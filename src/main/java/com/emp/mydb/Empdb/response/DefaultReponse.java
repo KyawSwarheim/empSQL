@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 public class DefaultReponse implements Serializable{
 	
-	private  String message= "Your Id is not found!";
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private  String message;
 
 	public DefaultReponse() {
 	}
@@ -19,7 +23,4 @@ public class DefaultReponse implements Serializable{
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-	
-
 }

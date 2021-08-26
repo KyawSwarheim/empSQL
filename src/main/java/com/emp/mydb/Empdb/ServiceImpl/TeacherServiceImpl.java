@@ -30,13 +30,24 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherRepository.findById(teacherId)
 				.orElseThrow(() -> new ResourceNotFoundException("Teacher", "Id", teacherId));
 	}
+	
+	@Override
+	public Teacher addTeacher(TeacherRequest teacherRequest) {
+		Teacher teacher = new Teacher();
+		Salary salary = salaryRepository.findById(teacherRequest.getSalaryId());
+		teacher.setName(teacherRequest.getName());
+		teacher.setSubject(teacherRequest.getSubject());
+		teacher.setDevelopment(teacherRequest.getDevelopment());
+		teacher.setSalary(salary);
+		return teacherRepository.save(teacher);
+	}
 
 	@Override
-	public Teacher updateTeacher(Teacher teacher) {
-		Teacher exitingTeacher = findById(teacher.getId());
-		exitingTeacher.setName(teacher.getName());
-		exitingTeacher.setSubject(teacher.getSubject());
-		exitingTeacher.setDevelopment(teacher.getDevelopment());
+	public Teacher updateTeacher(TeacherRequest teacherRequest) {
+		Teacher exitingTeacher = findById(teacherRequest.getId());
+		exitingTeacher.setName(teacherRequest.getName());
+		exitingTeacher.setSubject(teacherRequest.getSubject());
+		exitingTeacher.setDevelopment(teacherRequest.getDevelopment());
 		teacherRepository.save(exitingTeacher);
 		return exitingTeacher;
 	}
@@ -45,17 +56,6 @@ public class TeacherServiceImpl implements TeacherService {
 	public void deleteTeacher(long id) {
 		teacherRepository.deleteById(id);
 
-	}
-
-	@Override
-	public Teacher addTeacher(TeacherRequest teacherRequest) {
-		Salary salary = salaryRepository.getById(teacherRequest.getSalary_id());
-		Teacher teacher = new Teacher();
-		teacher.setName(teacherRequest.getName());
-		teacher.setSubject(teacherRequest.getSubject());
-		teacher.setDevelopment(teacherRequest.getDevelopment());
-		teacher.setSalary(salary);
-		return teacherRepository.save(teacher);
 	}
 
 	@Override

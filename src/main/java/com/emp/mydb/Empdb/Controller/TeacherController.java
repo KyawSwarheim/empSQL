@@ -37,14 +37,14 @@ public class TeacherController {
 	}
 	
 	@GetMapping("{/id}")
-	public ResponseEntity<Teacher> getTeacherById(@PathVariable("id") long TeacherId) {
+	public ResponseEntity<Object> getTeacherById(@PathVariable("id") long TeacherId) {
 		try {
-			return new ResponseEntity<Teacher>(teacherService.findById(TeacherId), HttpStatus.OK);
+			return new ResponseEntity<Object>(teacherService.findById(TeacherId), HttpStatus.OK);
 			
 		} catch (ResourceNotFoundException e) {
 			System.out.print(e);
 			DefaultReponse defaultReponse = new DefaultReponse(e.getMessage());
-			return new ResponseEntity(defaultReponse, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(defaultReponse, HttpStatus.NOT_FOUND);
 		}		
 	}
 	@GetMapping("/name")
@@ -53,8 +53,8 @@ public class TeacherController {
 	}
 
 	@PutMapping()
-	public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher) {
-		return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacher), HttpStatus.OK);
+	public ResponseEntity<Teacher> updateTeacher(@RequestBody TeacherRequest teacherRequest) {
+		return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacherRequest), HttpStatus.OK);
 	}
 
 	@DeleteMapping()

@@ -41,7 +41,7 @@ public class SalaryController {
     public ResponseEntity<Object> getSalaryById(@PathVariable("id") long id) {
         try {
             System.out.println("get by id salary " + id);
-            return new ResponseEntity<Object>(salaryService.findById(id), HttpStatus.OK);
+            return new ResponseEntity<Object>(salaryService.findId(id), HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             System.out.print(e);
             DefaultReponse defaultReponse = new DefaultReponse(e.getMessage());

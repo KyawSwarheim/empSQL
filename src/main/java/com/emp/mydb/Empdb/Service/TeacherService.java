@@ -14,7 +14,7 @@ public interface TeacherService {
 	
 	List<Teacher> findByName(String name);
 	
-	Teacher updateTeacher(Teacher teacher);
+	Teacher updateTeacher(TeacherRequest teacherRequest);
 	
 	void deleteTeacher(long id);
 	

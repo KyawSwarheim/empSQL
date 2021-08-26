@@ -13,6 +13,10 @@ public interface RoleService {
 
 	Role findById(long roleId);
 	
+	Role findByName(String name);
+	
+	List<Role> findByNameLike(String name);
+	
 	Role updateRole(Role role);
 	
 	void deleteRole(long id);

@@ -1,12 +1,13 @@
 package com.emp.mydb.Empdb.request;
 
 import java.io.Serializable;
-import java.util.Set;
-
-import com.emp.mydb.Empdb.entity.Role;
 
 public class EmployeeRequest implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String firstname;
 	private String lastname;

@@ -2,9 +2,7 @@ package com.emp.mydb.Empdb.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,25 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name= "employees")
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="employee_id")
-	private long id;
-	
-	@Column(name = "firstname")
+	private long employee_id;	
 	private String firstname;
-	
-	@Column(name = "lastname")
 	private String lastname;
-	
-	@Column(name = "email")
 	private String email;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -39,6 +26,7 @@ public class Employee {
 			joinColumns = @JoinColumn(name = "employee_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id")
 			)
+	
 	private Set<Role> roles = new HashSet<>();
 	
 	public Set<Role> getRoles() {
@@ -49,11 +37,11 @@ public class Employee {
 	}
 	public Employee() {
 	}
-	public long getId() {
-		return id;
+	public long getEmployee_id() {
+		return employee_id;
 	}
-	public void setId(long id) {
-		this.id = id;
+	public void setEmployee_id(long employee_id) {
+		this.employee_id = employee_id;
 	}
 	public String getFirstname() {
 		return firstname;
