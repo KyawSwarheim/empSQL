@@ -60,4 +60,9 @@ public class Role {
 		return "Role [role_id=" + role_id + ", rolename=" + rolename + ", employees=" + employees + "]";
 	}
 
+	public void addEmployee(Employee employee) {
+		this.employees.add(employee);
+		
+	}
+
 }

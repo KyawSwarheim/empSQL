@@ -1,6 +1,9 @@
 package com.emp.mydb.Empdb.request;
 
 import java.io.Serializable;
+import java.util.Set;
+
+import com.emp.mydb.Empdb.entity.Role;
 
 public class EmployeeRequest implements Serializable{
 
@@ -11,9 +14,8 @@ public class EmployeeRequest implements Serializable{
 	private long id;
 	private String firstname;
 	private String lastname;
-	private String email;
-	
-	private long role_id;
+	private String email;	
+	public Set<Role> roles;
 
 	public long getId() {
 		return id;
@@ -47,19 +49,10 @@ public class EmployeeRequest implements Serializable{
 		this.email = email;
 	}
 
-	public long getRole_id() {
-		return role_id;
+	@Override
+	public String toString() {
+		return "EmployeeRequest [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", roles=" + roles + "]";
 	}
-
-	public void setRole_id(long role_id) {
-		this.role_id = role_id;
-	}
-	
-
-	
-	
-	
-	
-	
 	
 }

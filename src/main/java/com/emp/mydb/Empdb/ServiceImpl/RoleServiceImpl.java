@@ -17,8 +17,9 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public Role saveRole(Role role) {
-		if (existByName(role.getRolename())) {
-			throw new AlreadyExistsException("RoleName is Already Exists");
+		
+		if (existByName(role)) {
+			throw new AlreadyExistsException("RoleName Already Exists");
 		}
 		return roleRepository.save(role);
 	}
@@ -47,22 +48,23 @@ public class RoleServiceImpl implements RoleService {
 		roleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Role", "Id", id));
 		roleRepository.deleteById(id);
 	}
-
+	
+	@Override
+	public List<Role> findByNameLike(String name) {
+		return roleRepository.findByNameLike(name);
+	}
+	
 	@Override
 	public Role findByName(String name) {
 		Role role = roleRepository.findByName(name);
 		if (role == null) {
-			throw new AlreadyExistsException("RoleName is NOT Exists");
+			throw new AlreadyExistsException("RoleName NOT Exists " + name);
 		}
 		return roleRepository.findByName(name);
 	}
 
-	public boolean existByName(String name) {
-		return findByName(name) != null;
-	}
-
-	@Override
-	public List<Role> findByNameLike(String name) {
-		return roleRepository.findByNameLike(name);
+	public boolean existByName(Role role) {
+		Role existRole = roleRepository.findByName(role.getRolename());
+		return existRole !=null &&  existRole.getRole_id() > 0 && existRole.getRole_id() != role.getRole_id() ;
 	}
 }

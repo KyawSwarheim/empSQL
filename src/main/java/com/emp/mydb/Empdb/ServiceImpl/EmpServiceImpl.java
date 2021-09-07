@@ -3,6 +3,8 @@ package com.emp.mydb.Empdb.ServiceImpl;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.emp.mydb.Empdb.Repository.EmpRepository;
@@ -49,8 +51,8 @@ public class EmpServiceImpl implements EmpService {
 		// we need t check whether employee with given id is exit in DB or not
 		Employee exitingEmployee = findById(employeeRequest.getId());
 		Set<Role> roles = new HashSet<>();
-		Role role = roleServiceImpl.findById(employeeRequest.getRole_id());
-		roles.add(role);
+		//Role role = roleServiceImpl.findById(employeeRequest.getRole_id());
+		//roles.add(role);
 		exitingEmployee.setFirstname(employeeRequest.getFirstname());
 		exitingEmployee.setLastname(employeeRequest.getLastname());
 		exitingEmployee.setEmail(employeeRequest.getEmail());
@@ -67,18 +69,42 @@ public class EmpServiceImpl implements EmpService {
 		empRepository.deleteById(id);
 	}
 
+//	@Override
+//	public Employee addEmployeewithRole(EmployeeRequest employeeRequest) {
+//		Employee employee = new Employee();
+//		Set<Role> roles = new HashSet<>();
+//		Role role = roleServiceImpl.findById(employeeRequest.getRole_id());
+//		roles.add(role);
+//		employee.setFirstname(employeeRequest.getFirstname());
+//		employee.setLastname(employeeRequest.getLastname());
+//		employee.setEmail(employeeRequest.getEmail());
+//		employee.setRoles(roles);
+//		return empRepository.save(employee);
+//
+//	}
+	
 	@Override
 	public Employee addEmployeewithRole(EmployeeRequest employeeRequest) {
 		Employee employee = new Employee();
-		Set<Role> roles = new HashSet<>();
-		Role role = roleServiceImpl.findById(employeeRequest.getRole_id());
-		roles.add(role);
+		
+		employee.setEmployee_id(employeeRequest.getId());
 		employee.setFirstname(employeeRequest.getFirstname());
 		employee.setLastname(employeeRequest.getLastname());
 		employee.setEmail(employeeRequest.getEmail());
-		employee.setRoles(roles);
+		employee.setRoles(employeeRequest.roles
+				.stream()
+				.map(role ->{
+					Role rrole = role;
+					if(rrole.getRole_id() > 0) {
+						rrole = roleServiceImpl.findById(rrole.getRole_id());
+					}
+					rrole.addEmployee(employee);
+					return rrole;
+					})
+				.collect(Collectors.toSet())
+				);
+		
 		return empRepository.save(employee);
-
 	}
 
 }
