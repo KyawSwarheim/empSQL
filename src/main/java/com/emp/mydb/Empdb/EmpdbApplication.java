@@ -3,10 +3,13 @@ package com.emp.mydb.Empdb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.emp.mydb.Empdb.Repository.EmpRepository;
 import com.emp.mydb.Empdb.Repository.RoleRepository;
 import com.emp.mydb.Empdb.Repository.SalaryRepository;
 import com.emp.mydb.Empdb.Repository.TeacherRepository;
+
 
 @SpringBootApplication
 public class EmpdbApplication {

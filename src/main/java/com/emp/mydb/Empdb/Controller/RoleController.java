@@ -19,7 +19,7 @@ import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
-@RequestMapping("api/roles")
+@RequestMapping("api/role")
 public class RoleController {
 	
 	@Autowired

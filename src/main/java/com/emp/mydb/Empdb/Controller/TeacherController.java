@@ -20,7 +20,7 @@ import com.emp.mydb.Empdb.request.TeacherRequest;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
-@RequestMapping("/api/teachers")
+@RequestMapping("/api/teacher")
 public class TeacherController {
 
 	@Autowired
