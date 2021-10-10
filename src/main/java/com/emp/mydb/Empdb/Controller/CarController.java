@@ -22,7 +22,7 @@ import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
-@RequestMapping("/api/car")
+@RequestMapping("/api/cars")
 @CrossOrigin(origins = "*")
 public class CarController {
 	

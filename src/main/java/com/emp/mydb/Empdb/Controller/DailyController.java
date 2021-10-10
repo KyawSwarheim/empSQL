@@ -22,7 +22,7 @@ import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
-@RequestMapping("/api/daily")
+@RequestMapping("/api/dailys")
 @CrossOrigin(origins = "*")
 public class DailyController {
 

@@ -19,7 +19,7 @@ import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
-@RequestMapping("/api/salary")
+@RequestMapping("/api/salarys")
 public class SalaryController {
 
     @Autowired

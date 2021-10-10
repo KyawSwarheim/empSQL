@@ -20,7 +20,7 @@ import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admins")
 @CrossOrigin(origins = "*")
 public class AdminController {
 	

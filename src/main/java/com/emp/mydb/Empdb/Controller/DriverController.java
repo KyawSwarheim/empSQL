@@ -22,7 +22,7 @@ import com.emp.mydb.Empdb.exception.ResourceNotFoundException;
 import com.emp.mydb.Empdb.response.DefaultReponse;
 
 @RestController
-@RequestMapping("/api/driver")
+@RequestMapping("/api/drivers")
 @CrossOrigin(origins = "*")
 public class DriverController {
 	
